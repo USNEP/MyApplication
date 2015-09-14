@@ -8,17 +8,13 @@ import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
-import android.os.Bundle;
-import android.app.Activity;
 import android.app.FragmentManager;
 import android.support.v4.app.ActionBarDrawerToggle;
-import android.support.v4.widget.DrawerLayout;
 import android.util.Log;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ListView;
+
+import Db.DatabaseHandler;
 
 public class MainActivity extends AppCompatActivity {
     private String[] mNavigationDrawerItemTitles;
@@ -31,15 +27,16 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        DatabaseHandler db = new DatabaseHandler(this);
         mTitle = mDrawerTitle = getTitle();
         mNavigationDrawerItemTitles= getResources().getStringArray(R.array.navigation_drawer_items_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[3];
 
-        drawerItem[0] = new ObjectDrawerItem(R.drawable.ic_search, "Create");
-        drawerItem[1] = new ObjectDrawerItem(R.drawable.ic_search, "Read");
-        drawerItem[2] = new ObjectDrawerItem(R.drawable.ic_search, "Help");
+        drawerItem[0] = new ObjectDrawerItem(R.drawable.icon_save, "Create");
+        drawerItem[1] = new ObjectDrawerItem(R.drawable.icon_save, "Read");
+        drawerItem[2] = new ObjectDrawerItem(R.drawable.icon_save, "Help");
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.listview_item_row, drawerItem);
         mDrawerList.setAdapter(adapter);
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -47,7 +44,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerToggle = new ActionBarDrawerToggle(
                 this,
                 mDrawerLayout,
-                R.drawable.ic_search,
+                R.drawable.icon_save,
                 R.string.drawer_open,
                 R.string.drawer_close
         ) {
@@ -55,20 +52,26 @@ public class MainActivity extends AppCompatActivity {
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setTitle(mTitle);
+                getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(false);
+                getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_save);
+
+                /// getSupportActionBar().setTitle(mTitle);
             }
 
             /** Called when a drawer has settled in a completely open state. */
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
-                getSupportActionBar().setTitle(mDrawerTitle);
+                getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+                // getSupportActionBar().setTitle(mDrawerTitle);
             }
         };
 
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        getSupportActionBar().setHomeButtonEnabled(true);
+       // getSupportActionBar().setHomeButtonEnabled(true);
+       // getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_save);
+
 
     }
 
@@ -77,7 +80,6 @@ public class MainActivity extends AppCompatActivity {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
         ActionBar actionBar = getSupportActionBar();
-
         //actionBar.setDisplayHomeAsUpEnabled(true);
         return true;
     }
@@ -94,7 +96,8 @@ public class MainActivity extends AppCompatActivity {
     @Override
     public void setTitle(CharSequence title) {
         mTitle = title;
-        setTitle("create");    }
+        setTitle(mTitle);
+    }
 
 
     @Override
@@ -102,6 +105,7 @@ public class MainActivity extends AppCompatActivity {
         super.onPostCreate(savedInstanceState);
         mDrawerToggle.syncState();
     }
+
 
     private class DrawerItemClickListener implements ListView.OnItemClickListener {
 
@@ -121,7 +125,7 @@ public class MainActivity extends AppCompatActivity {
                 fragment = new CreateFragment();
                 break;
             case 1:
-                fragment = new CreateFragment();
+                fragment = new AllFragment();
                 break;
             case 2:
                 fragment = new CreateFragment();

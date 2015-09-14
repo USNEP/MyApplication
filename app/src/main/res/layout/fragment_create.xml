@@ -1,22 +1,74 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent" >
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <TextView
+        android:id="@+id/lblTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Enter Contact Details"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="17dp"
+        android:ems="10"
+        android:textSize="20dp"/>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+      android:id="@+id/form"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+        android:layout_marginTop="15dp">
+
+
+    <EditText
+        android:id="@+id/fldName"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="19dp"
+        android:ems="10" >
+
+        <requestFocus />
+    </EditText>
+
+    <EditText
+        android:id="@+id/fldPh_no"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_below="@+id/fldName"
+        android:layout_marginTop="22dp"
+        android:ems="10" />
 
     <TextView
-        android:id="@+id/txtLabel"
+        android:id="@+id/lblName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
-        android:text="Create View"
-        android:textSize="16dp" />
+        android:layout_alignBaseline="@+id/fldName"
+        android:layout_alignBottom="@+id/fldName"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:text="Name:" />
 
-    <ImageView
+    <TextView
+        android:id="@+id/lblPh_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@id/txtLabel"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="10dp"
-        android:src="@drawable/ic_search" />
+        android:layout_alignBaseline="@+id/fldPh_no"
+        android:layout_alignBottom="@+id/fldPh_no"
+        android:layout_alignLeft="@+id/lblName"
+        android:text="Phone no:" />
+
+        <Button
+            android:id="@+id/btnAdd"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/fldPh_no"
+            android:layout_centerHorizontal="true"
+            android:text="Add"
+            android:layout_marginTop="16dp" />
+
+    </RelativeLayout>
 
 </RelativeLayout>

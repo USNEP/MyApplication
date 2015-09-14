@@ -5,7 +5,7 @@ android {
     buildToolsVersion "23.0.1"
 
     defaultConfig {
-        applicationId "com.example.ashok.myapplication"
+        applicationId "com.example.ashok.activity"
         minSdkVersion 15
         targetSdkVersion 23
         versionCode 1
