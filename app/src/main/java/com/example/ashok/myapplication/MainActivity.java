@@ -32,11 +32,13 @@ public class MainActivity extends AppCompatActivity {
         mNavigationDrawerItemTitles= getResources().getStringArray(R.array.navigation_drawer_items_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
-        ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[3];
+        ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[5];
 
-        drawerItem[0] = new ObjectDrawerItem(R.drawable.icon_save, "Create");
-        drawerItem[1] = new ObjectDrawerItem(R.drawable.icon_save, "Read");
-        drawerItem[2] = new ObjectDrawerItem(R.drawable.icon_save, "Help");
+        drawerItem[0] = new ObjectDrawerItem(R.drawable.icon_save, mNavigationDrawerItemTitles[0]);
+        drawerItem[1] = new ObjectDrawerItem(R.drawable.icon_save, mNavigationDrawerItemTitles[1]);
+        drawerItem[2] = new ObjectDrawerItem(R.drawable.icon_save,mNavigationDrawerItemTitles[2]);
+        drawerItem[3] = new ObjectDrawerItem(R.drawable.icon_save, mNavigationDrawerItemTitles[3]);
+        drawerItem[4] = new ObjectDrawerItem(R.drawable.icon_save,mNavigationDrawerItemTitles[4]);
         DrawerItemCustomAdapter adapter = new DrawerItemCustomAdapter(this, R.layout.listview_item_row, drawerItem);
         mDrawerList.setAdapter(adapter);
         mDrawerList.setOnItemClickListener(new DrawerItemClickListener());
@@ -69,6 +71,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        selectItem(-1);
        // getSupportActionBar().setHomeButtonEnabled(true);
        // getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_save);
 
@@ -85,12 +88,28 @@ public class MainActivity extends AppCompatActivity {
     }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        switch ((id)){
+            case android.R.id.home:
+                selectItem(-1);
 
-        if (mDrawerToggle.onOptionsItemSelected(item)) {
-            return true;
+                break;
+            case R.id.action_settings:
+                selectItem(-2);
+                break;
+            case R.id.action_search:
+                selectItem(-3);
+                break;
+            default:
+                if (mDrawerToggle.onOptionsItemSelected(item)) {
+                    return true;
+                }
+                return super.onOptionsItemSelected(item);
+
+
         }
+        return true;
 
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -111,7 +130,7 @@ public class MainActivity extends AppCompatActivity {
 
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            selectItem(position);
+                       selectItem(position);
         }
 
     }
@@ -121,6 +140,12 @@ public class MainActivity extends AppCompatActivity {
         Fragment fragment = null;
 
         switch (position) {
+            case -2:
+                fragment=new Setting();
+                break;
+            case -1:
+                fragment=new Home();
+                break;
             case 0:
                 fragment = new CreateFragment();
                 break;
@@ -130,6 +155,13 @@ public class MainActivity extends AppCompatActivity {
             case 2:
                 fragment = new CreateFragment();
                 break;
+            case 3:
+                fragment = new AllFragment();
+                break;
+            case 4:
+                fragment = new CreateFragment();
+                break;
+
 
             default:
                 break;
@@ -138,11 +170,12 @@ public class MainActivity extends AppCompatActivity {
         if (fragment != null) {
             FragmentManager fragmentManager = getFragmentManager();
             fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
-
-            mDrawerList.setItemChecked(position, true);
-            mDrawerList.setSelection(position);
-            getSupportActionBar().setTitle(mNavigationDrawerItemTitles[position]);
-            mDrawerLayout.closeDrawer(mDrawerList);
+if(position>-1) {
+    mDrawerList.setItemChecked(position, true);
+    mDrawerList.setSelection(position);
+    getSupportActionBar().setTitle(mNavigationDrawerItemTitles[position]);
+    mDrawerLayout.closeDrawer(mDrawerList);
+}
 
         } else {
             Log.e("MainActivity", "Error in creating fragment");

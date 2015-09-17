@@ -7,7 +7,7 @@
         android:id="@+id/entry_id"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@+id/label"
+        android:text=""
         android:textSize="30dp" >
     </TextView>
 
@@ -15,7 +15,7 @@
         android:id="@+id/entry_name"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@+id/label"
+        android:text=""
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="16dp"
         android:textSize="30dp" >
@@ -24,7 +24,7 @@
         android:id="@+id/entry_phno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@+id/label"
+        android:text=""
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="16dp"
         android:textSize="30dp" >

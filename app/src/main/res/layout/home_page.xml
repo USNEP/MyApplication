@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+    <TextView
+        android:id="@+id/lblHome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text=" Your Pocket"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="17dp"
+        android:ems="10"
+        android:textSize="20dp"/>
+
+
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:id="@+id/homeDisplay"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="25dp"
+        >
+
+
+        <TextView
+            android:id="@+id/value_bank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="19dp"
+            android:ems="10" >
+
+
+        </TextView>
+
+        <TextView
+            android:id="@+id/value_cash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/value_bank"
+            android:layout_marginTop="22dp"
+            android:ems="10" />
+        <TextView
+            android:id="@+id/value_loan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/value_cash"
+            android:layout_marginTop="22dp"
+            android:ems="10" />
+
+
+        <TextView
+            android:id="@+id/lblbank"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/value_bank"
+            android:layout_alignBottom="@+id/value_bank"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="16dp"
+            android:layout_marginTop="16dp"
+
+            android:text="Bank" />
+
+        <TextView
+            android:id="@+id/lblCash"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/value_cash"
+            android:layout_alignBottom="@+id/value_cash"
+            android:layout_alignLeft="@+id/lblbank"
+            android:text="Cash" />
+        <TextView
+            android:id="@+id/lblLoan"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/value_loan"
+            android:layout_alignBottom="@+id/value_loan"
+            android:layout_alignLeft="@+id/lblCash"
+            android:text="Loan" />
+
+        <TextView
+            android:id="@+id/lblStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/valueStatus"
+            android:layout_alignBottom="@+id/valueStatus"
+            android:layout_alignLeft="@+id/lblLoan"
+            android:text="Your Status:" />
+
+        <TextView
+            android:id="@+id/valueStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/value_loan"
+            android:layout_marginTop="22dp"
+            android:ems="10" />
+
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -2,42 +2,109 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
+
+    <EditText
+        android:id="@+id/fldDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="17dp"
+        android:ems="10"
+        android:textSize="15dp"
+        android:text="Choose Date"
+        />
+
     <TextView
         android:id="@+id/lblTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Enter Contact Details"
-        android:layout_marginTop="15dp"
         android:layout_marginLeft="17dp"
+        android:layout_marginTop="60dp"
         android:ems="10"
         android:textSize="20dp"/>
 
-
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
       android:id="@+id/form"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-        android:layout_marginTop="15dp">
+         android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_marginTop="75dp">
+
+        <Spinner
+            android:id="@+id/spinnerList1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:entries="@array/country_arrays"
+            android:prompt="@string/country_prompt"
+            android:layout_marginTop="19dp"
+            android:clickable="false"/>
+        <TextView
+            android:id="@+id/lblspinner1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignBaseline="@+id/spinnerList1"
+            android:text="Choose one option:"
+            android:layout_marginLeft="16dp"
+            />
 
 
-    <EditText
-        android:id="@+id/fldName"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentRight="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="19dp"
-        android:ems="10" >
+        <!--<RadioGroup-->
+            <!--android:id="@+id/radiofistOption"-->
+            <!--android:layout_width="wrap_content"-->
+            <!--android:layout_height="wrap_content"-->
+            <!--android:orientation="horizontal"-->
+            <!--android:layout_marginTop="19dp"-->
+            <!--android:layout_alignParentTop="true"-->
+            <!--android:layout_marginLeft="16dp"-->
+            <!-->-->
 
-        <requestFocus />
-    </EditText>
+            <!--<RadioButton-->
+                <!--android:id="@+id/radioMale"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="option1"-->
+                <!--android:checked="true" />-->
+
+            <!--<RadioButton-->
+                <!--android:id="@+id/radioFemale"-->
+                <!--android:layout_width="wrap_content"-->
+                <!--android:layout_height="wrap_content"-->
+                <!--android:text="option2" />-->
+
+        <!--</RadioGroup>-->
+
+
+        <Spinner
+            android:id="@+id/spinnerList"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/spinnerList1"
+            android:entries="@array/country_arrays"
+            android:prompt="@string/country_prompt"
+            android:layout_marginTop="19dp"
+            android:clickable="false"/>
+        <!--<EditText-->
+        <!--android:id="@+id/fldName"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_alignParentRight="true"-->
+        <!--android:layout_below="@+id/radiofistOption"-->
+        <!--android:layout_marginTop="19dp"-->
+        <!--android:ems="10" >-->
+
+        <!--<requestFocus />-->
+    <!--</EditText>-->
 
     <EditText
         android:id="@+id/fldPh_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/fldName"
+        android:layout_below="@+id/spinnerList"
         android:layout_marginTop="22dp"
         android:ems="10" />
 
@@ -45,11 +112,11 @@
         android:id="@+id/lblName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/fldName"
-        android:layout_alignBottom="@+id/fldName"
+        android:layout_alignBaseline="@+id/spinnerList"
+        android:layout_alignBottom="@+id/spinnerList"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="16dp"
-        android:text="Name:" />
+        android:text="From:" />
 
     <TextView
         android:id="@+id/lblPh_no"
@@ -58,7 +125,7 @@
         android:layout_alignBaseline="@+id/fldPh_no"
         android:layout_alignBottom="@+id/fldPh_no"
         android:layout_alignLeft="@+id/lblName"
-        android:text="Phone no:" />
+        android:text="Amount:" />
 
         <Button
             android:id="@+id/btnAdd"

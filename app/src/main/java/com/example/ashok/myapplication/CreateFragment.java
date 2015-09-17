@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Spinner;
 import android.widget.Toast;
 
 import Db.DatabaseHandler;
@@ -21,7 +22,7 @@ public class CreateFragment extends Fragment implements  View.OnClickListener {
 public Button btnAddd;
     public  DatabaseHandler db;
     Context thiscontext;
-    EditText fldName;
+    Spinner fldName;
     EditText fldPh_no;
     String name;
     String phNo;
@@ -32,7 +33,7 @@ public Button btnAddd;
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         View rootView = inflater.inflate(R.layout.fragment_create, container, false);
-         fldName=(EditText)rootView.findViewById(R.id.fldName);
+       fldName=(Spinner)rootView.findViewById(R.id.spinnerList);
        fldPh_no=(EditText)rootView.findViewById(R.id.fldPh_no);
 
         btnAddd = (Button) rootView.findViewById(R.id.btnAdd);
@@ -57,7 +58,7 @@ public Button btnAddd;
     public boolean validateForm(){
 
         try {
-             name = fldName.getText().toString();
+             name = fldName.getSelectedItem().toString();
              phNo = fldPh_no.getText().toString();
         }catch (Exception e)
 
@@ -76,7 +77,7 @@ public Button btnAddd;
     }
     public void clearForm(){
 
-        fldName.setText("");
+        fldName.setSelection(0);
         fldPh_no.setText("");
     }
 

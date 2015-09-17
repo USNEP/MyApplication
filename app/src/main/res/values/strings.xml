@@ -5,11 +5,26 @@
     <string name="action_settings">Settings</string>
 
     <string-array name="navigation_drawer_items_array">
-        <item>Create</item>
-        <item>Read</item>
-        <item>Help</item>
+        <item>Record Money In</item>
+        <item>Record Expenses</item>
+        <item>Record Money Out</item>
+        <item>Reports</item>
+        <item>About</item>
     </string-array>
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="button_send">Save</string>
+    <string-array name="country_arrays">
+        <item>Malaysia</item>
+        <item>United States</item>
+        <item>Indonesia</item>
+        <item>France</item>
+        <item>Italy</item>
+        <item>Singapore</item>
+        <item>New Zealand</item>
+        <item>India</item>
+    </string-array>
+    <string name="country_prompt">Choose a country</string>
+
+
 </resources>
