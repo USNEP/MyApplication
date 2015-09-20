@@ -147,19 +147,19 @@ public class MainActivity extends AppCompatActivity {
                 fragment=new Home();
                 break;
             case 0:
-                fragment = new CreateFragment();
+                fragment = new RecordMonyIn();
                 break;
             case 1:
-                fragment = new AllFragment();
+                fragment = new RecordMoneyExpenses();
                 break;
             case 2:
-                fragment = new CreateFragment();
+                fragment = new RecordMoneyOut();
                 break;
             case 3:
-                fragment = new AllFragment();
+                fragment = new Reports();
                 break;
             case 4:
-                fragment = new CreateFragment();
+                fragment = new About();
                 break;
 
 

@@ -4,18 +4,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ImageView;
+import android.widget.Button;
 import android.widget.TextView;
-
-import org.w3c.dom.Text;
 
 import java.util.List;
 
-import model.Contact;
+import model.History;
 
-public class MobileArrayAdapter extends ArrayAdapter<Contact> {
+public class MobileArrayAdapter extends ArrayAdapter<History> {
 
-    public MobileArrayAdapter(Context context, List<Contact> items) {
+    public MobileArrayAdapter(Context context, List<History> items) {
         super(context, R.layout.list_entries, items);
     }
 
@@ -32,7 +30,7 @@ public class MobileArrayAdapter extends ArrayAdapter<Contact> {
             viewHolder = new ViewHolder();
             viewHolder.ivIcon = (TextView) convertView.findViewById(R.id.entry_id);
             viewHolder.tvTitle = (TextView) convertView.findViewById(R.id.entry_name);
-            viewHolder.tvDescription = (TextView) convertView.findViewById(R.id.entry_phno);
+            viewHolder.tvDescription = (Button) convertView.findViewById(R.id.entry_phno);
             convertView.setTag(viewHolder);
         } else {
             // recycle the already inflated view
@@ -40,13 +38,13 @@ public class MobileArrayAdapter extends ArrayAdapter<Contact> {
         }
 
         // update the item view
-        Contact item = getItem(position);
+        History item = getItem(position);
 
         System.out.println(".......................................................................");
-        System.out.println(String.valueOf(item.getName()));
-        viewHolder.ivIcon.setText(String.valueOf(item.getID()));
-        viewHolder.tvTitle.setText(item.getName());
-        viewHolder.tvDescription.setText(item.getPhoneNumber());
+        System.out.println(String.valueOf(item.get_type()));
+        viewHolder.ivIcon.setText(String.valueOf(item.get_type()));
+        viewHolder.tvTitle.setText(item.get_sub_type());
+        viewHolder.tvDescription.setText(String.valueOf(item.get_amount()));
 
         return convertView;
     }
@@ -55,6 +53,6 @@ public class MobileArrayAdapter extends ArrayAdapter<Contact> {
     private static class ViewHolder {
         TextView ivIcon;
         TextView tvTitle;
-        TextView tvDescription;
+        Button tvDescription;
     }
 }

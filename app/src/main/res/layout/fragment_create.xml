@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/createView"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
 
@@ -10,9 +15,11 @@
         android:layout_alignParentRight="true"
         android:layout_marginTop="15dp"
         android:layout_marginLeft="17dp"
+        android:singleLine="true"
         android:ems="10"
         android:textSize="15dp"
-        android:text="Choose Date"
+        android:focusable="false"
+        android:hint="Choose Date"
         />
 
     <TextView
@@ -37,9 +44,12 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:entries="@array/country_arrays"
+            android:entries="@array/navigation_drawer_items_array"
             android:prompt="@string/country_prompt"
             android:layout_marginTop="19dp"
+
+            android:layout_marginRight="19dp"
+            android:background="@drawable/edit_text"
             android:clickable="false"/>
         <TextView
             android:id="@+id/lblspinner1"
@@ -83,7 +93,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/spinnerList1"
-            android:entries="@array/country_arrays"
+            android:entries="@array/navigation_drawer_items_array"
             android:prompt="@string/country_prompt"
             android:layout_marginTop="19dp"
             android:clickable="false"/>
@@ -100,12 +110,14 @@
     <!--</EditText>-->
 
     <EditText
-        android:id="@+id/fldPh_no"
+        android:id="@+id/fldAmount"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/spinnerList"
         android:layout_marginTop="22dp"
+        android:singleLine="true"
+        android:numeric="integer"
         android:ems="10" />
 
     <TextView
@@ -122,16 +134,62 @@
         android:id="@+id/lblPh_no"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignBaseline="@+id/fldPh_no"
-        android:layout_alignBottom="@+id/fldPh_no"
+        android:layout_alignBaseline="@+id/fldAmount"
+        android:layout_alignBottom="@+id/fldAmount"
         android:layout_alignLeft="@+id/lblName"
         android:text="Amount:" />
+
+        <RadioGroup
+        android:id="@+id/radiofistOption"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_below="@+id/lblPh_no"
+        android:layout_marginTop="19dp"
+        android:layout_marginLeft="16dp"
+        >
+
+        <RadioButton
+        android:id="@+id/radioCash"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cash"
+        android:checked="true" />
+
+        <RadioButton
+        android:id="@+id/radioBank"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bank" />
+
+        </RadioGroup>
+
+        <TextView
+        android:id="@+id/lblComment"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignBaseline="@+id/fldComment"
+        android:layout_alignBottom="@+id/fldComment"
+        android:layout_alignParentLeft="true"
+        android:layout_marginLeft="16dp"
+        android:text="Comment:" />
+
+        <EditText
+            android:id="@+id/fldComment"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:singleLine="true"
+            android:layout_below="@+id/radiofistOption"
+            android:layout_marginTop="22dp"
+            android:ems="10" />
+
 
         <Button
             android:id="@+id/btnAdd"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/fldPh_no"
+            android:layout_below="@+id/fldComment"
             android:layout_centerHorizontal="true"
             android:text="Add"
             android:layout_marginTop="16dp" />
@@ -139,3 +197,4 @@
     </RelativeLayout>
 
 </RelativeLayout>
+</ScrollView>

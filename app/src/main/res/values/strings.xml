@@ -14,17 +14,24 @@
     <string name="drawer_open">Open navigation drawer</string>
     <string name="drawer_close">Close navigation drawer</string>
     <string name="button_send">Save</string>
-    <string-array name="country_arrays">
-        <item>Malaysia</item>
-        <item>United States</item>
-        <item>Indonesia</item>
-        <item>France</item>
-        <item>Italy</item>
-        <item>Singapore</item>
-        <item>New Zealand</item>
-        <item>India</item>
+    <string-array name="record_expenses_array">
+        <item>Day to Day Expenses</item>
+        <item>Periodic Expenses</item>
+        <item>Educational Expenses</item>
+        <item>Other Expenses</item>
+           </string-array>
+    <string-array name="money_in_array">
+        <item>Income</item>
+        <item>Loan Taken</item>
+
+    </string-array>
+    <string-array name="money_out_array">
+        <item>Loan Paid</item>
+        <item>Loan Given</item>
+        <item>Investment</item>
     </string-array>
     <string name="country_prompt">Choose a country</string>
+    <string name="create_new">Create New</string>
 
 
 </resources>

@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="30dp" >
+        android:textSize="10dp" >
     </TextView>
 
     <TextView
@@ -18,17 +18,17 @@
         android:text=""
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="16dp"
-        android:textSize="30dp" >
+        android:textSize="10dp" >
     </TextView>
-    <TextView
+    <Button
         android:id="@+id/entry_phno"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text=""
+        android:text="Button"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="16dp"
-        android:textSize="30dp" >
-    </TextView>
+        android:textSize="10dp" >
+    </Button>
 
 
 
