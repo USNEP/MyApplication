@@ -12,14 +12,14 @@ public class Type {
     public Type() {
     }
 
-    public Type(long _id, String _head, String _sub_type, String _type) {
+    public Type(long _id, String _head, String _type, String _sub_type) {
         this._id = _id;
         this._head = _head;
         this._sub_type = _sub_type;
         this._type = _type;
     }
 
-    public Type(String _head, String _sub_type, String _type) {
+    public Type(String _head, String _type, String _sub_type) {
         this._head = _head;
         this._sub_type = _sub_type;
         this._type = _type;

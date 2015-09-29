@@ -30,8 +30,15 @@
         <item>Loan Given</item>
         <item>Investment</item>
     </string-array>
+    <string-array name="loan_items">
+        <item>Loan Taken</item>
+        <item>Loan Paid</item>
+        <item>Loan Given</item>
+    </string-array>
+
     <string name="country_prompt">Choose a country</string>
     <string name="create_new">Create New</string>
+
 
 
 </resources>

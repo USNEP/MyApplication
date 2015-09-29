@@ -3,10 +3,10 @@ package com.example.ashok.myapplication;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Fragment;
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,24 +23,27 @@ import android.widget.Toast;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Calendar;
-import java.util.Collection;
-import java.util.Date;
-import java.util.Iterator;
 import java.util.List;
-import java.util.ListIterator;
 import java.util.Locale;
 
 import Db.DatabaseHandler;
+import Db.LoadingDialog;
+import global.Global;
 import model.History;
+import model.Status;
 import model.Type;
 
 /**
  * Created by ashok on 9/12/15.
  */
 public class RecordMoneyExpenses extends Fragment implements  View.OnClickListener {
-public Button btnAddd;
+    public Button btnAddd;
+    Button btnCreate;
     public  DatabaseHandler db;
+    //fields to access view items
+    TextView lblSpinner;
     Context thiscontext;
     Spinner fldOption;
     Spinner fldFrom;
@@ -48,12 +51,18 @@ public Button btnAddd;
     EditText fldDate;
     EditText fldComment;
     RadioButton rb;
+    TextView lblName;
     RadioButton rc;
-    History history;
     TextView title;
-    String [] listvalue;
-    List<String> creoptions;
+    /// fields for class
+    List<Type> creoptions;
     String m_Text="";
+    History history;
+    List<String> drawerItems;
+    String currentDrawer;
+    Calendar myCalendar = Calendar.getInstance();
+   String[] loan_items;
+    ProgressDialog ldDialog;
     public RecordMoneyExpenses() {
         history= new History();
     }
@@ -63,34 +72,42 @@ public Button btnAddd;
        View rootView = inflater.inflate(R.layout.fragment_create, container, false);
         thiscontext = container.getContext();
         db = new DatabaseHandler(thiscontext);
-
-        fldOption =(Spinner)rootView.findViewById(R.id.spinnerList1);
-       fldFrom =(Spinner)rootView.findViewById(R.id.spinnerList);
-        listvalue=getResources().getStringArray(R.array.record_expenses_array);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(thiscontext, android.R.layout.simple_spinner_item,listvalue);
-        fldOption.setAdapter(adapter);
-        fldOption.setOnItemSelectedListener(spinner_listener);
-        creoptions = new ArrayList<String>();
-        creoptions.add(getResources().getString(R.string.create_new));
-        db.getAllTypes();
-        creoptions.addAll(db.getType("1","2","2"));
-        ArrayAdapter<String> adapter1 = new ArrayAdapter<String>(thiscontext, android.R.layout.simple_spinner_item,creoptions);
-        fldFrom.setAdapter(adapter1);
-        fldFrom.setOnItemSelectedListener(spinner_listener);
-        TextView lblName=(TextView) rootView.findViewById(R.id.lblName);
-        lblName.setText("Expense Head");
-        fldAmount = (EditText)rootView.findViewById(R.id.fldAmount);
-       rb = (RadioButton)rootView. findViewById(R.id.radioBank);
-        rc = (RadioButton)rootView. findViewById(R.id.radioCash);
-       fldDate =(EditText) rootView.findViewById(R.id.fldDate);
+        ldDialog=new LoadingDialog("Loading.....",thiscontext).getLoadingDialog();
+        loan_items=getResources().getStringArray(R.array.loan_items);
+        drawerItems=getArguments().getStringArrayList("arlist");
+        currentDrawer=getArguments().getString("current");
         title=(TextView) rootView.findViewById(R.id.lblTitle);
-        title.setText(getResources().getStringArray(R.array.navigation_drawer_items_array)[1]);
+        title.setText(currentDrawer);
+        fldOption =(Spinner)rootView.findViewById(R.id.spinnerList1);
+        fldOption.setOnItemSelectedListener(type_listener);
+        fldFrom =   (Spinner)rootView.findViewById(R.id.spinnerList);
+        lblName=(TextView) rootView.findViewById(R.id.lblName);
+        lblSpinner=(TextView) rootView.findViewById(R.id.lblspinner1);
+        fldAmount = (EditText)rootView.findViewById(R.id.fldAmount);
+        rb = (RadioButton)rootView. findViewById(R.id.radioBank);
+        rc = (RadioButton)rootView. findViewById(R.id.radioCash);
+        fldDate =(EditText) rootView.findViewById(R.id.fldDate);
         fldDate.setOnClickListener(date_listener);
         btnAddd = (Button) rootView.findViewById(R.id.btnAdd);
         fldComment=(EditText) rootView.findViewById(R.id.fldComment);
+        btnCreate = (Button) rootView.findViewById(R.id.btnCreate);
+        btnCreate.setOnClickListener(this);
         btnAddd.setOnClickListener(this);
         myCalendar=Calendar.getInstance();
         updateLabel();
+        switch(drawerItems.indexOf(currentDrawer)){
+            case 0:
+                onCreateMoneyInView();
+                break;
+            case 1:
+                onCreateExpenseView();
+                break;
+            case 2:
+                onCreateMoneyOutView();
+                break;
+            default:
+        }
+
         return rootView;
     }
 
@@ -98,32 +115,32 @@ public Button btnAddd;
     @Override
     public void onClick(View v) {
 
-        if(validateForm()) {
-            db.addHistory(new History(history.get_type(), history.get_sub_type(),history.get_io(),
-                    history.get_cb(),history.get_amount(),history.get_date(),history.get_description()));
-            clearForm();
-        }
-        else{
-            Toast.makeText(thiscontext, "Invalid Entry", Toast.LENGTH_LONG).show();
-        }
-    }
-    AdapterView.OnItemSelectedListener spinner_listener = new AdapterView.OnItemSelectedListener(){
-            @Override
-            public void onItemSelected(AdapterView<?> arg0, View arg1,
-            int arg2, long arg3) {
-        if(arg2==0 && arg3==0){
+        switch (v.getId()){
+        case R.id.btnCreate:
             AlertDialog.Builder builder = new AlertDialog.Builder(thiscontext);
             builder.setTitle("Create New?");
-
             final EditText input = new EditText(thiscontext);
             input.setInputType(InputType.TYPE_CLASS_TEXT );
             builder.setView(input);
             builder.setPositiveButton("Create", new DialogInterface.OnClickListener() {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
+                    boolean success;
                     m_Text = input.getText().toString();
-                    Type tp=new Type("1",m_Text,"3");
-                    db.addType(tp);
+                    creoptions = new ArrayList<Type>();
+                    if (!m_Text.isEmpty()) {
+                        if(new ArrayList<String>(Arrays.asList(loan_items)).contains(fldOption.getSelectedItem().toString())){
+                            success=  db.addType( new Type("All_Loans","Loan_Items", m_Text));
+                        creoptions.addAll(db.getTypes("All_Loans", "Loan_Items"));
+                        } else{
+                            success=  db.addType( new Type(currentDrawer, fldOption.getSelectedItem().toString(), m_Text));
+                            creoptions.addAll(db.getTypes(currentDrawer, fldOption.getSelectedItem().toString()));
+                        }
+
+                        updateSpinner(Global.global.getItems(creoptions),fldFrom);
+                    } else
+                    {                Toast.makeText(thiscontext, "Invalid Entry", Toast.LENGTH_LONG).show();
+                    }
                     dialog.cancel();
                 }
             });
@@ -135,9 +152,67 @@ public Button btnAddd;
             });
 
             builder.show();
-            }
+            break;
+        case R.id.btnAdd:
 
+
+
+            if(validateForm()) {
+                db.addHistory(new History(history.get_type(), history.get_sub_type(),history.get_io(),
+                        history.get_cb(),history.get_amount(),history.get_date(),history.get_description()));
+
+            updateStatus(history.get_amount(),rb.isChecked(),fldOption.getSelectedItem().toString());
+                System.out.println("which checked");
+                System.out.println("kkkkkkkkkk" + rb.isChecked());
+                clearForm();
             }
+            else{
+                Toast.makeText(thiscontext, "Invalid Entry", Toast.LENGTH_LONG).show();
+            }
+            break;
+        default:
+    }
+
+    }
+
+    AdapterView.OnItemSelectedListener type_listener = new AdapterView.OnItemSelectedListener(){
+        @Override
+        public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                   int arg2, long arg3) {
+            if(currentDrawer==drawerItems.get(0) ){
+                if(arg2==0 && arg3==0){
+                    lblName.setText("Title");
+                }else{
+                    lblName.setText("From");
+                }
+            }
+            else if(currentDrawer==drawerItems.get(2)){
+                if((arg2==0 && arg3==0) ||(arg2==1 && arg3==1)){
+                    lblName.setText("To");
+                }else{
+                    lblName.setText("Title");
+                }
+            }
+            creoptions = new ArrayList<Type>();
+            try {
+                if(new ArrayList<String>(Arrays.asList(loan_items)).contains(fldOption.getSelectedItem().toString())) {
+                    if(fldOption.getSelectedItem().toString().equals(loan_items[1]))
+                    {
+                        btnCreate.setVisibility(View.GONE);
+                    }
+                    else{
+                        btnCreate.setVisibility(View.VISIBLE);
+                    }
+                    creoptions.addAll(db.getTypes("All_Loans", "Loan_Items"));
+                }else{
+                    creoptions.addAll(db.getTypes(currentDrawer, fldOption.getSelectedItem().toString()));
+                }                }catch (Exception e){
+                e.printStackTrace();
+            }
+            updateSpinner(Global.global.getItems(creoptions), fldFrom);
+
+        }
+
         @Override
         public void onNothingSelected(AdapterView<?> arg0) {
             // TODO Auto-generated method stub
@@ -157,15 +232,21 @@ public Button btnAddd;
     };
 
     public boolean validateForm(){
-
-
-        history.set_type(fldOption.getSelectedItem().toString());
-        history.set_sub_type(fldFrom.getSelectedItem().toString());
-        history.set_io(false);
-        history.set_cb(rc.isChecked() ? true : false);
-        history.set_amount(Double.parseDouble(fldAmount.getText().toString()));
-        history.set_date(fldDate.getText().toString());
-        history.set_description(fldComment.getText().toString());
+        try {
+            history.set_type(fldOption.getSelectedItem().toString());
+            history.set_sub_type(fldFrom.getSelectedItem().toString());
+            history.set_io(false);
+            history.set_cb(rc.isChecked() ? true : false);
+            history.set_amount(Double.parseDouble(fldAmount.getText().toString()));
+            history.set_date(fldDate.getText().toString());
+            history.set_description(fldComment.getText().toString());
+        }catch(Exception e)
+        {
+            return false;
+        }
+        if(history.get_sub_type().isEmpty()){
+            return false;
+        }
 
         return true;
     }
@@ -178,7 +259,23 @@ public Button btnAddd;
         myCalendar=Calendar.getInstance();
         updateLabel();
     }
-    Calendar myCalendar = Calendar.getInstance();
+    public int updateStatus(double amt,boolean bank,String optn){
+
+        Status st=db.getStatus();
+        if(optn.equals(loan_items[1]) || optn.equals(loan_items[2])){
+            st.set_loan(String.valueOf(Double.parseDouble(st.get_loan())-amt));
+        }
+        if( optn.equals(loan_items[0])){
+            st.set_loan(String.valueOf(Double.parseDouble(st.get_loan())+amt));
+        }
+       amt= currentDrawer.equals(drawerItems.get(0))?amt:(-1)*amt;
+       if(bank)
+           st.set_bank(String.valueOf(Double.parseDouble(st.get_bank())+amt));
+       else
+           st.set_cash(String.valueOf(Double.parseDouble(st.get_cash()) + amt));
+
+        return db.updateStatus(st);
+    }
 
     DatePickerDialog.OnDateSetListener date = new DatePickerDialog.OnDateSetListener() {
 
@@ -197,8 +294,68 @@ public Button btnAddd;
 
         String myFormat = "MM/dd/yy"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
-
         fldDate.setText(sdf.format(myCalendar.getTime()));
+    }
+
+    public void onCreateExpenseView() {
+        lblSpinner.setText("Expense Type :");
+        lblName.setText("Expense Head :");
+        updateSpinner(new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.record_expenses_array))), fldOption);
+        creoptions = new ArrayList<Type>();
+
+        try {
+            if(new ArrayList<String>(Arrays.asList(loan_items)).contains(fldOption.getSelectedItem().toString())) {
+                creoptions.addAll(db.getTypes("All_Loans", "Loan_Items"));
+            }else{
+                creoptions.addAll(db.getTypes(currentDrawer, fldOption.getSelectedItem().toString()));
+            }
+        }catch(Exception e){
+            e.printStackTrace();
+        }
+        updateSpinner(Global.global.getItems(creoptions), fldFrom);
+
+    }
+    public void onCreateMoneyInView(){
+        lblSpinner.setText("Source:");
+        lblName.setText("Title :");
+        updateSpinner(new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.money_in_array))), fldOption);
+        creoptions = new ArrayList<Type>();
+        try {
+            if(new ArrayList<String>(Arrays.asList(loan_items)).contains(fldOption.getSelectedItem().toString())) {
+                creoptions.addAll(db.getTypes("All_Loans", "Loan_Items"));
+            }else{
+                creoptions.addAll(db.getTypes(currentDrawer, fldOption.getSelectedItem().toString()));
+            }        }catch(Exception e){
+            e.printStackTrace();
+        }
+        updateSpinner(Global.global.getItems(creoptions), fldFrom);
+
+    }
+    public void onCreateMoneyOutView(){
+        lblName.setText("To :");
+        lblSpinner.setText("Out For :");
+        updateSpinner(new ArrayList<String>(Arrays.asList(getResources().getStringArray(R.array.money_out_array))),fldOption);
+        creoptions = new ArrayList<Type>();
+        try {
+            if(new ArrayList<String>(Arrays.asList(loan_items)).contains(fldOption.getSelectedItem().toString())) {
+                if(fldOption.getSelectedItem().toString().equals(loan_items[1]))
+                {
+                    btnCreate.setVisibility(View.GONE);
+                }
+                creoptions.addAll(db.getTypes("All_Loans", "Loan_Items"));
+            }else{
+                creoptions.addAll(db.getTypes(currentDrawer, fldOption.getSelectedItem().toString()));
+            }        }catch(Exception e){
+            e.printStackTrace();
+        }
+        updateSpinner(Global.global.getItems(creoptions), fldFrom);
+
+    }
+    public void updateSpinner(List<String> listValue,Spinner spinner){
+
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(thiscontext, android.R.layout.simple_spinner_item,listValue);
+        spinner.setAdapter(adapter);
+        spinner.invalidate();
     }
 
 

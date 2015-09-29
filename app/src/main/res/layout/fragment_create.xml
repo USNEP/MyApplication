@@ -44,19 +44,16 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:entries="@array/navigation_drawer_items_array"
-            android:prompt="@string/country_prompt"
             android:layout_marginTop="19dp"
-
+            android:spinnerMode="dropdown"
             android:layout_marginRight="19dp"
-            android:background="@drawable/edit_text"
             android:clickable="false"/>
         <TextView
             android:id="@+id/lblspinner1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignBaseline="@+id/spinnerList1"
-            android:text="Choose one option:"
+            android:text="Source:"
             android:layout_marginLeft="16dp"
             />
 
@@ -93,10 +90,19 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_below="@+id/spinnerList1"
-            android:entries="@array/navigation_drawer_items_array"
-            android:prompt="@string/country_prompt"
             android:layout_marginTop="19dp"
+            android:layout_marginRight="19dp"
+            android:spinnerMode="dropdown"
             android:clickable="false"/>
+        <Button
+            android:id="@+id/btnCreate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinnerList"
+            android:layout_alignParentRight="true"
+            android:text="@string/create_new"
+            android:layout_marginRight="19dp"
+            android:layout_marginTop="16dp" />
         <!--<EditText-->
         <!--android:id="@+id/fldName"-->
         <!--android:layout_width="wrap_content"-->
@@ -114,7 +120,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
-        android:layout_below="@+id/spinnerList"
+        android:layout_below="@+id/btnCreate"
         android:layout_marginTop="22dp"
         android:singleLine="true"
         android:numeric="integer"

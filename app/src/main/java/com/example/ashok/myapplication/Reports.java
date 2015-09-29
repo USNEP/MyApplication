@@ -28,13 +28,13 @@ public class Reports extends ListFragment {
 
         public void onActivityCreated(Bundle savedInstanceState) {
             super.onActivityCreated(savedInstanceState);
-            db=new DatabaseHandler(getActivity());
-            List<History> all=db.getAllContacts();
-        System.out.println("///////////////////////////////////////////////////////////////////////////////////////////");
-        System.out.println(String.valueOf(all.size()));
-        System.out.println(String.valueOf(all.get(0).get_id()));
-
-        setListAdapter(new MobileArrayAdapter(getActivity(), all));
+//            db=new DatabaseHandler(getActivity());
+//            List<History> all=db.getAllContacts();
+//        System.out.println("///////////////////////////////////////////////////////////////////////////////////////////");
+//        System.out.println(String.valueOf(all.size()));
+//        System.out.println(String.valueOf(all.get(0).get_id()));
+//
+//        setListAdapter(new MobileArrayAdapter(getActivity(), all));
 
     }
 

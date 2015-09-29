@@ -1,9 +1,32 @@
 <?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    >
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent" >
     <TextView
-        android:id="@+id/lblSetting"
+        android:id="@+id/lblMoneyIn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Setting page"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="17dp"
+        android:ems="10"
+        android:textSize="20dp"/>
+    <TextView
+        android:id="@+id/lblExpenses"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Setting page"
+        android:layout_marginTop="15dp"
+        android:layout_marginLeft="17dp"
+        android:ems="10"
+        android:textSize="20dp"/>
+
+    <TextView
+        android:id="@+id/lblMoneyOut"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Setting page"
@@ -13,17 +36,8 @@
         android:textSize="20dp"/>
 
 
-    <Spinner
-        android:id="@+id/spinner1"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:entries="@array/record_expenses_array"
-        android:prompt="@string/country_prompt"
-        android:layout_marginTop="50dp"
-        android:layout_marginLeft="17dp"
-        android:clickable="false"/>
-
 
 
 
 </RelativeLayout>
+</ScrollView>

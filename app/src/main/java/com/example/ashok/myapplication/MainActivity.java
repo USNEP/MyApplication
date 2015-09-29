@@ -1,10 +1,13 @@
 package com.example.ashok.myapplication;
 
+import android.app.AlertDialog;
 import android.app.Fragment;
+import android.content.DialogInterface;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Gravity;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ListView;
@@ -14,7 +17,11 @@ import android.util.Log;
 import android.view.View;
 import android.widget.AdapterView;
 
+import java.util.ArrayList;
+import java.util.Arrays;
+
 import Db.DatabaseHandler;
+import global.Global;
 
 public class MainActivity extends AppCompatActivity {
     private String[] mNavigationDrawerItemTitles;
@@ -23,11 +30,16 @@ public class MainActivity extends AppCompatActivity {
     ActionBarDrawerToggle mDrawerToggle;
     private CharSequence mDrawerTitle;
     private CharSequence mTitle;
+    private boolean drawerstatus;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         DatabaseHandler db = new DatabaseHandler(this);
+        System.out.println("Database on start calling");
+        db.onStart();
+        System.out.println("Database on start called");
+
         mTitle = mDrawerTitle = getTitle();
         mNavigationDrawerItemTitles= getResources().getStringArray(R.array.navigation_drawer_items_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
@@ -54,9 +66,9 @@ public class MainActivity extends AppCompatActivity {
             /** Called when a drawer has settled in a completely closed state. */
             public void onDrawerClosed(View view) {
                 super.onDrawerClosed(view);
-                getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(false);
+                getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
                 getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_save);
-
+                drawerstatus=true;
                 /// getSupportActionBar().setTitle(mTitle);
             }
 
@@ -64,6 +76,9 @@ public class MainActivity extends AppCompatActivity {
             public void onDrawerOpened(View drawerView) {
                 super.onDrawerOpened(drawerView);
                 getSupportActionBar().setDefaultDisplayHomeAsUpEnabled(true);
+                getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_save);
+                drawerstatus=false;
+
                 // getSupportActionBar().setTitle(mDrawerTitle);
             }
         };
@@ -71,6 +86,7 @@ public class MainActivity extends AppCompatActivity {
         mDrawerLayout.setDrawerListener(mDrawerToggle);
 
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_save);
         selectItem(-1);
        // getSupportActionBar().setHomeButtonEnabled(true);
        // getSupportActionBar().setHomeAsUpIndicator(R.drawable.icon_save);
@@ -91,14 +107,30 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         switch ((id)){
             case android.R.id.home:
-                selectItem(-1);
-
+              if(mDrawerLayout.isDrawerOpen(Gravity.LEFT)) {
+                     mDrawerLayout.closeDrawer(Gravity.LEFT);
+                }
+                else{
+                  mDrawerLayout.openDrawer(Gravity.LEFT);
+              }
                 break;
             case R.id.action_settings:
                 selectItem(-2);
                 break;
             case R.id.action_search:
-                selectItem(-3);
+                new AlertDialog.Builder(this)
+                        .setTitle("Exit KYP?")
+                        .setMessage("Are you sure to exit KYP?")
+                        .setPositiveButton("Yes", new DialogInterface.OnClickListener()
+                        {
+                            @Override
+                            public void onClick(DialogInterface dialog, int which) {
+                                finish();
+                                System.exit(0);                            }
+
+                        })
+                        .setNegativeButton("No", null).show();
+
                 break;
             default:
                 if (mDrawerToggle.onOptionsItemSelected(item)) {
@@ -116,6 +148,11 @@ public class MainActivity extends AppCompatActivity {
     public void setTitle(CharSequence title) {
         mTitle = title;
         setTitle(mTitle);
+    }
+    @Override
+    public void onBackPressed() {
+        selectItem(-1);
+
     }
 
 
@@ -138,6 +175,7 @@ public class MainActivity extends AppCompatActivity {
     private void selectItem(int position) {
 
         Fragment fragment = null;
+        Bundle bundle = new Bundle();
 
         switch (position) {
             case -2:
@@ -147,13 +185,26 @@ public class MainActivity extends AppCompatActivity {
                 fragment=new Home();
                 break;
             case 0:
-                fragment = new RecordMonyIn();
+                fragment = new RecordMoneyExpenses();
+                 bundle = new Bundle();
+                bundle.putString("current", mNavigationDrawerItemTitles[0]);
+                bundle.putStringArrayList("arlist", new ArrayList<String>(Arrays.asList(mNavigationDrawerItemTitles)));
+                fragment.setArguments(bundle);
                 break;
             case 1:
                 fragment = new RecordMoneyExpenses();
+                 bundle = new Bundle();
+                bundle.putString("current", mNavigationDrawerItemTitles[1]);
+                bundle.putStringArrayList("arlist", new ArrayList<String>(Arrays.asList(mNavigationDrawerItemTitles)));
+                fragment.setArguments(bundle);
+
                 break;
             case 2:
-                fragment = new RecordMoneyOut();
+                fragment = new RecordMoneyExpenses();
+                 bundle = new Bundle();
+                bundle.putString("current", mNavigationDrawerItemTitles[2]);
+                bundle.putStringArrayList("arlist", new ArrayList<String>(Arrays.asList(mNavigationDrawerItemTitles)));
+                fragment.setArguments(bundle);
                 break;
             case 3:
                 fragment = new Reports();
@@ -168,8 +219,10 @@ public class MainActivity extends AppCompatActivity {
         }
 
         if (fragment != null) {
-            FragmentManager fragmentManager = getFragmentManager();
-            fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
+            Global.getInstance();
+            Global.global.setFragmentManager(getFragmentManager());
+            Global.global.changeFragment(fragment);
+            //fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
 if(position>-1) {
     mDrawerList.setItemChecked(position, true);
     mDrawerList.setSelection(position);

@@ -1,0 +1,44 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp" >
+    <TextView
+        android:id="@+id/sn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="..............."
+        android:textSize="18dp" >
+    </TextView>
+    <TextView
+        android:id="@+id/item_st"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="5dp"
+        android:layout_toRightOf="@id/sn"
+        android:text="..............."
+        android:textSize="18dp" >
+    </TextView>
+    <ImageButton
+        android:id="@+id/btnDelete"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentRight="true"
+        android:layout_marginRight="1dp"
+        android:textSize="10dp"
+        android:src="@drawable/deleteicon"
+        >
+    </ImageButton>
+    <ImageButton
+        android:id="@+id/btnEdit"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_toLeftOf="@id/btnDelete"
+        android:textSize="10dp"
+        android:src="@drawable/pencilicon"
+        >
+    </ImageButton>
+
+
+
+
+</RelativeLayout>
