@@ -39,6 +39,7 @@
     <string name="country_prompt">Choose a country</string>
     <string name="create_new">Create New</string>
 
+    <string name="about">This is KYP(Know your pocket).It can be used to keep record of all the personal income and expenses.</string>
 
 
 </resources>

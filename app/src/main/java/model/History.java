@@ -9,6 +9,7 @@ public class History {
     long _id;
     String _type;
     String _sub_type;
+    String _head;
     boolean _io;
     boolean _cb;
     double _amount;
@@ -19,10 +20,11 @@ public class History {
 
     }
 
-    public History(long _id, String _type, String _sub_type, boolean _io, boolean _cb, double _amount, String _date, String _description) {
+    public History(long _id, String _type, String _sub_type,String _head, boolean _io, boolean _cb, double _amount, String _date, String _description) {
         this._id = _id;
         this._type = _type;
         this._sub_type = _sub_type;
+        this._head=_head;
         this._io = _io;
         this._cb = _cb;
         this._amount = _amount;
@@ -30,9 +32,10 @@ public class History {
         this._description = _description;
     }
 
-    public History(String _type, String _sub_type, boolean _io, boolean _cb, double _amount, String _date, String _description) {
+    public History(String _type, String _sub_type,String _head, boolean _io, boolean _cb, double _amount, String _date, String _description) {
         this._type = _type;
         this._sub_type = _sub_type;
+        this._head=_head;
         this._io = _io;
         this._cb = _cb;
         this._amount = _amount;
@@ -63,6 +66,14 @@ public class History {
     public void set_sub_type(String _sub_type) {
         this._sub_type = _sub_type;
     }
+    public String get_head() {
+        return _head;
+    }
+
+    public void set_head(String _head) {
+        this._head = _head;
+    }
+
 
     public boolean get_io() {
         return _io;

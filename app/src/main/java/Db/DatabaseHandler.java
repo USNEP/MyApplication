@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import model.History;
+import model.ReportData;
 import model.Status;
 import model.Type;
 
@@ -21,7 +22,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
 
     // All Static variables
     // Database Version
-    private static final int DATABASE_VERSION = 8;
+    private static final int DATABASE_VERSION = 10;
 
     // Database Name
     private static final String DATABASE_NAME = "contactsManager";
@@ -70,7 +71,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public void onCreate(SQLiteDatabase db) {
         String CREATE_CONTACTS_TABLE = "CREATE TABLE " + TABLE_CONTACTS + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_TYPE + " TEXT,"
-                + KEY_SUB_TYPE + " TEXT," +KEY_IO + " TEXT,"+KEY_CB + " TEXT,"
+                + KEY_SUB_TYPE + " TEXT,"+ KEY_HEAD + " TEXT," +KEY_IO + " TEXT,"+KEY_CB + " TEXT,"
                 +KEY_AMOUNT + " TEXT,"+KEY_DATE + " TEXT,"+KEY_DESCRIPTION + " TEXT"+ ")";
         String CREATE_TYPE_TABLE = "CREATE TABLE " + TABLE_TYPE + "("
                 + KEY_ID + " INTEGER PRIMARY KEY," + KEY_HEAD + " TEXT,"
@@ -116,11 +117,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         }
     }
   public  void addHistory(History contact) {
-        long value= getType(contact.get_sub_type());
+      System.out.println("adding history    .....................");
+      System.out.println(contact.get_head());
+        long value= getType(contact.get_sub_type()).get_id();
         SQLiteDatabase db = this.getWritableDatabase();
         ContentValues values = new ContentValues();
         values.put(KEY_TYPE, contact.get_type()); // History Name
-        values.put(KEY_SUB_TYPE,String.valueOf( value)); // History Phone
+        values.put(KEY_SUB_TYPE,String.valueOf(value)); // History Phone
+         values.put(KEY_HEAD,contact.get_head()); // History Phone
         values.put(KEY_IO, contact.get_io());
         values.put(KEY_CB, contact.get_cb());
         values.put(KEY_AMOUNT, contact.get_amount());
@@ -144,18 +148,16 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     e.printStackTrace();return false;
         }
     return true;}
-    public long getType(String type) {
+    public Type getType(String type) {
 
         SQLiteDatabase db = this.getReadableDatabase();
-
-        Cursor cursor = db.query(TABLE_TYPE, new String[]{KEY_ID,}, KEY_SUB_TYPE + "=?",
+        Cursor cursor = db.query(TABLE_TYPE, new String[]{KEY_ID,KEY_HEAD,KEY_TYPE,KEY_SUB_TYPE}, KEY_SUB_TYPE + "=?",
                 new String[]{type}, null, null, null, null);
-        if (cursor != null) {
+        if (cursor != null)
             cursor.moveToFirst();
-            return Long.parseLong(cursor.getString(0));
-        }
+            Type t=new Type(Long.parseLong(cursor.getString(0)),cursor.getString(1),cursor.getString(2),cursor.getString(3));
 
-        return 0;
+        return t;
     }
 
     // Getting single contact
@@ -164,13 +166,13 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
 
         Cursor cursor = db.query(TABLE_CONTACTS, new String[] { KEY_ID,
-                        KEY_TYPE, KEY_SUB_TYPE, KEY_IO, KEY_CB, KEY_AMOUNT, KEY_DATE, KEY_DESCRIPTION}, KEY_ID + "=?",
+                        KEY_TYPE, KEY_SUB_TYPE,KEY_HEAD, KEY_IO, KEY_CB, KEY_AMOUNT, KEY_DATE, KEY_DESCRIPTION}, KEY_ID + "=?",
                 new String[] { String.valueOf(id) }, null, null, null, null);
         if (cursor != null)
             cursor.moveToFirst();
 
         History contact = new History(Long.parseLong(cursor.getString(0)),
-                cursor.getString(1), cursor.getString(2),cursor.getString(3)==KEY_IN?true:false,cursor.getString(4)==KEY_CASH?true:false,
+                cursor.getString(1), cursor.getString(2), cursor.getString(2),cursor.getString(3)==KEY_IN?true:false,cursor.getString(4)==KEY_CASH?true:false,
                 Double.valueOf(cursor.getString(5)),cursor.getString(6),cursor.getString(7));
         // return contact
         return contact;
@@ -236,12 +238,14 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 contact.set_id(Long.parseLong(cursor.getString(0)));
                 contact.set_type(cursor.getString(1));
                 contact.set_sub_type(cursor.getString(2));
-                contact.set_io(cursor.getString(3) == KEY_IN ? true : false);
+                contact.set_head(cursor.getString(3));
 
-                contact.set_cb(cursor.getString(4) == KEY_CASH ? true : false);
-                contact.set_amount(Double.valueOf(cursor.getString(5)));
-                contact.set_date(cursor.getString(6));
-                contact.set_description(cursor.getString(7));
+                contact.set_io(cursor.getString(4) == KEY_IN ? true : false);
+
+                contact.set_cb(cursor.getString(5) == KEY_CASH ? true : false);
+                contact.set_amount(Double.valueOf(cursor.getString(6)));
+                contact.set_date(cursor.getString(7));
+                contact.set_description(cursor.getString(8));
 
                 // Adding contact to list
                 contactList.add(contact);
@@ -294,6 +298,8 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         ContentValues values = new ContentValues();
         values.put(KEY_TYPE, contact.get_type()); // History Name
         values.put(KEY_SUB_TYPE, contact.get_sub_type()); // History Phone
+        values.put(KEY_HEAD, contact.get_head()); // History Phone
+
         values.put(KEY_IO, contact.get_io());
         values.put(KEY_CB, contact.get_cb());
         values.put(KEY_AMOUNT, contact.get_amount());
@@ -332,22 +338,97 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[]{type});
         db.close();
     }
-    public int updateType(String contact) {
+    public int updateType(String contact,String updt) {
+       Type t= getType(contact);
+        t.set_sub_type(updt);
         SQLiteDatabase db = this.getWritableDatabase();
 
         ContentValues values = new ContentValues();
-        values.put(KEY_TYPE, contact.get_type()); // History Name
-        values.put(KEY_SUB_TYPE, contact.get_sub_type()); // History Phone
-        values.put(KEY_IO, contact.get_io());
-        values.put(KEY_CB, contact.get_cb());
-        values.put(KEY_AMOUNT, contact.get_amount());
-        values.put(KEY_DATE, contact.get_date());
-        values.put(KEY_DESCRIPTION, contact.get_description());
-
+        values.put(KEY_HEAD, t.get_head()); // History Name
+        values.put(KEY_TYPE, t.get_type()); // History Name
+        values.put(KEY_SUB_TYPE, t.get_sub_type()); // History Phone
         // updating row
         return db.update(TABLE_TYPE, values, KEY_SUB_TYPE + " = ?",
                 new String[] { contact });
     }
+
+    public ReportData getIndvReport(String type){
+        ReportData rpData=new ReportData();
+        String qry="SELECT SUM("+KEY_AMOUNT+") FROM "+TABLE_CONTACTS+" WHERE "+KEY_TYPE+" = '"+type+"';";
+        System.out.println(qry);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(qry, null);
+        if (cursor.moveToFirst()) {
+            do {try {
+                rpData.setAmount(Double.parseDouble(cursor.getString(0)));
+            }catch(Exception e){
+               e.printStackTrace();
+                rpData.setAmount(0);
+
+            }
+                rpData.setType(type);
+            } while (cursor.moveToNext());
+        }
+        System.out.println("Amount::::::::::" + rpData.getAmount());
+        return rpData;
+    }
+    public ReportData getReportBySubType(String type,String subType){
+        ReportData rpData=new ReportData();
+        String type_id = String.valueOf(getType(subType).get_id());
+        String qry="SELECT SUM("+KEY_AMOUNT+") FROM "+TABLE_CONTACTS+" WHERE "+KEY_SUB_TYPE+" = '"+type_id+"' AND "+KEY_HEAD+" = '"+type+"';";
+        System.out.println(qry);
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(qry, null);
+        if (cursor.moveToFirst()) {
+            do {try {
+                rpData.setAmount(Double.parseDouble(cursor.getString(0)));
+            }catch(Exception e){
+                e.printStackTrace();
+                rpData.setAmount(0);
+
+            }
+                rpData.setType(subType);
+            } while (cursor.moveToNext());
+        }
+        System.out.println("Amount::::::::::"+rpData.getAmount());
+        return rpData;
+    }
+    public List<History> getistoryByDate(String startDate,String endDate,String type,String head) {
+        List<History> contactList = new ArrayList<History>();
+        String type_id = String.valueOf(getType(type).get_id());
+        String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS+" WHERE "+KEY_SUB_TYPE+" = '"+type_id+"' AND "+KEY_HEAD+" = '"+
+                head+"' AND "+KEY_DATE+" >= '"+startDate+"' AND "+KEY_DATE+" <='"+endDate+"';";
+        System.out.println(selectQuery);
+
+        SQLiteDatabase db = this.getReadableDatabase();
+        Cursor cursor = db.rawQuery(selectQuery, null);
+
+        // looping through all rows and adding to list
+        if (cursor.moveToFirst()) {
+            do {
+                History contact = new History();
+                contact.set_id(Long.parseLong(cursor.getString(0)));
+                contact.set_type(cursor.getString(1));
+                contact.set_sub_type(cursor.getString(2));
+                contact.set_head(cursor.getString(3));
+
+                contact.set_io(cursor.getString(4) == KEY_IN ? true : false);
+
+                contact.set_cb(cursor.getString(5) == KEY_CASH ? true : false);
+                contact.set_amount(Double.valueOf(cursor.getString(6)));
+                contact.set_date(cursor.getString(7));
+                contact.set_description(cursor.getString(8));
+
+                // Adding contact to list
+                contactList.add(contact);
+            } while (cursor.moveToNext());
+        }
+
+        // return contact list
+        return contactList;
+    }
+
+
 //    public boolean getContactByPhNo(String phNo){
 //        boolean response=false;
 //        SQLiteDatabase db = this.getReadableDatabase();

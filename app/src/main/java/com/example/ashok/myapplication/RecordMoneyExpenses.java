@@ -158,7 +158,8 @@ public class RecordMoneyExpenses extends Fragment implements  View.OnClickListen
 
 
             if(validateForm()) {
-                db.addHistory(new History(history.get_type(), history.get_sub_type(),history.get_io(),
+                System.out.println("cd------------------"+history.get_head());
+                db.addHistory(new History(history.get_type(), history.get_sub_type(),history.get_head(),history.get_io(),
                         history.get_cb(),history.get_amount(),history.get_date(),history.get_description()));
 
             updateStatus(history.get_amount(),rb.isChecked(),fldOption.getSelectedItem().toString());
@@ -196,15 +197,19 @@ public class RecordMoneyExpenses extends Fragment implements  View.OnClickListen
             creoptions = new ArrayList<Type>();
             try {
                 if(new ArrayList<String>(Arrays.asList(loan_items)).contains(fldOption.getSelectedItem().toString())) {
+                    System.out.println(fldOption.getSelectedItem().toString());
                     if(fldOption.getSelectedItem().toString().equals(loan_items[1]))
                     {
                         btnCreate.setVisibility(View.GONE);
                     }
                     else{
+                        System.out.println("made visible");
+                        System.out.println( fldOption.getSelectedItem().toString());
                         btnCreate.setVisibility(View.VISIBLE);
                     }
                     creoptions.addAll(db.getTypes("All_Loans", "Loan_Items"));
                 }else{
+                    btnCreate.setVisibility(View.VISIBLE);
                     creoptions.addAll(db.getTypes(currentDrawer, fldOption.getSelectedItem().toString()));
                 }                }catch (Exception e){
                 e.printStackTrace();
@@ -233,9 +238,12 @@ public class RecordMoneyExpenses extends Fragment implements  View.OnClickListen
 
     public boolean validateForm(){
         try {
+            System.out.println("/////////////////"+currentDrawer);
             history.set_type(fldOption.getSelectedItem().toString());
             history.set_sub_type(fldFrom.getSelectedItem().toString());
+            history.set_head(currentDrawer);
             history.set_io(false);
+            System.out.println("........."+history.get_head()+".............");
             history.set_cb(rc.isChecked() ? true : false);
             history.set_amount(Double.parseDouble(fldAmount.getText().toString()));
             history.set_date(fldDate.getText().toString());
@@ -292,7 +300,7 @@ public class RecordMoneyExpenses extends Fragment implements  View.OnClickListen
     };
     private void updateLabel() {
 
-        String myFormat = "MM/dd/yy"; //In which you need put here
+        String myFormat = "yyyy-MM-dd"; //In which you need put here
         SimpleDateFormat sdf = new SimpleDateFormat(myFormat, Locale.US);
         fldDate.setText(sdf.format(myCalendar.getTime()));
     }

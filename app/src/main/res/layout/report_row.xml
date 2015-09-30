@@ -1,0 +1,33 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:padding="5dp" >
+    <TextView
+        android:id="@+id/sn_setting"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="..............."
+        android:textSize="15dp" ></TextView>
+    <TextView
+        android:id="@+id/sn_empty"
+        android:layout_toRightOf="@+id/sn_setting"
+        android:layout_width="20dp"
+        android:layout_height="wrap_content"
+        android:text=""
+        android:textSize="10dp" ></TextView>
+    <TextView
+        android:id="@+id/st_row"
+        android:layout_toRightOf="@+id/sn_empty"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="..............."
+        android:textSize="15dp" ></TextView>
+    <TextView
+        android:id="@+id/st_amount"
+        android:layout_alignParentRight="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="..............."
+        android:textSize="15dp" ></TextView>
+
+</RelativeLayout>

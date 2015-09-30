@@ -56,6 +56,7 @@ private DatabaseHandler db;
         list_view1.setAdapter(new SellitngListAdpter(getActivity(), Global.global.getItems(types)));
         list_view1.setOnItemClickListener(this);
 
+
         return view;
     }
 
