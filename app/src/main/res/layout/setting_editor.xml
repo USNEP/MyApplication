@@ -2,7 +2,9 @@
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
     android:id="@+id/scroll_list"
-    android:fillViewport="true" >
+    android:fillViewport="true"
+    android:background="#B0BEC5"
+    >
 
     <RelativeLayout
         android:layout_width="match_parent"

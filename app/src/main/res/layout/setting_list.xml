@@ -16,7 +16,9 @@
         android:layout_marginLeft="5dp"
         android:layout_toRightOf="@id/sn"
         android:text="..............."
-        android:textSize="18dp" >
+        android:textSize="18dp"
+        android:background="#B0BEC5"
+        >
     </TextView>
     <ImageButton
         android:id="@+id/btnDelete"

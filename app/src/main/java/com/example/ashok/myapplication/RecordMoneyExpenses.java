@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -107,6 +108,8 @@ public class RecordMoneyExpenses extends Fragment implements  View.OnClickListen
                 break;
             default:
         }
+
+
 
         return rootView;
     }
@@ -361,7 +364,9 @@ public class RecordMoneyExpenses extends Fragment implements  View.OnClickListen
     }
     public void updateSpinner(List<String> listValue,Spinner spinner){
 
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(thiscontext, android.R.layout.simple_spinner_item,listValue);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(thiscontext,android.R.layout.simple_spinner_item,listValue);
+        adapter    .setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+
         spinner.setAdapter(adapter);
         spinner.invalidate();
     }

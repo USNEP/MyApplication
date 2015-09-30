@@ -2,6 +2,7 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
+    android:background="#B0BEC5"
     >
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/createView"
@@ -17,6 +18,7 @@
         android:layout_marginLeft="17dp"
         android:singleLine="true"
         android:ems="10"
+        style="?android:attr/spinnerStyle"
         android:textSize="15dp"
         android:focusable="false"
         android:hint="Choose Date"
@@ -45,7 +47,7 @@
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
             android:layout_marginTop="19dp"
-            android:spinnerMode="dropdown"
+            android:dropDownWidth="fill_parent"
             android:layout_marginRight="19dp"
             android:clickable="false"/>
         <TextView
@@ -93,7 +95,8 @@
             android:layout_marginTop="19dp"
             android:layout_marginRight="19dp"
             android:spinnerMode="dropdown"
-            android:clickable="false"/>
+            android:clickable="false"
+           />
         <Button
             android:id="@+id/btnCreate"
             android:layout_width="wrap_content"
@@ -101,6 +104,7 @@
             android:layout_below="@+id/spinnerList"
             android:layout_alignParentRight="true"
             android:text="@string/create_new"
+            android:background="@drawable/button_bg"
             android:layout_marginRight="19dp"
             android:layout_marginTop="16dp" />
         <!--<EditText-->
@@ -124,6 +128,7 @@
         android:layout_marginTop="22dp"
         android:singleLine="true"
         android:numeric="integer"
+
         android:ems="10" />
 
     <TextView
@@ -198,7 +203,9 @@
             android:layout_below="@+id/fldComment"
             android:layout_centerHorizontal="true"
             android:text="Add"
+            android:background="@drawable/button_bg"
             android:layout_marginTop="16dp" />
+
 
     </RelativeLayout>
 

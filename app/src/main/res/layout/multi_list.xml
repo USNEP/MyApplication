@@ -6,6 +6,7 @@
     android:fillViewport="true"
     android:orientation="vertical"
     android:fadeScrollbars="false"
+    android:background="#B0BEC5"
     >
 
     <RelativeLayout
