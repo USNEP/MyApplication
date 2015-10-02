@@ -3,7 +3,8 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/material_blue_grey_800">
+    style="@style/foreback"
+    >
     <TextView
         android:id="@+id/lblMoneyIn"
         android:layout_width="wrap_content"
@@ -11,7 +12,9 @@
         android:text="Know Your Pocket"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        style="@style/foreback"
+        />
     <ProgressBar
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

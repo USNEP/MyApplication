@@ -181,7 +181,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         SQLiteDatabase db = this.getReadableDatabase();
         List<Type> contactList = new ArrayList<Type>();
         // Select All Query
-        String whereClause = KEY_HEAD+"='"+head+"' AND "+KEY_TYPE+"='"+type+"'";
+        String whereClause = KEY_TYPE+"='"+type+"'";
         System.out.println("WHERE Cluse   " + whereClause);
         Cursor cursor = db.query(TABLE_TYPE, new String[]{KEY_ID,KEY_SUB_TYPE},whereClause , null, null, null, null);
         if (cursor.moveToFirst()) {
@@ -352,9 +352,10 @@ public class DatabaseHandler extends SQLiteOpenHelper {
                 new String[] { contact });
     }
 
-    public ReportData getIndvReport(String type){
+    public ReportData getIndvReport(String type,String startDate,String endDate){
         ReportData rpData=new ReportData();
-        String qry="SELECT SUM("+KEY_AMOUNT+") FROM "+TABLE_CONTACTS+" WHERE "+KEY_TYPE+" = '"+type+"';";
+        String qry="SELECT SUM("+KEY_AMOUNT+") FROM "+TABLE_CONTACTS+" WHERE "+KEY_TYPE+
+                " = '"+type+"' AND "+KEY_DATE+" >= '"+startDate+"' AND "+KEY_DATE+" <='"+endDate+"';";
         System.out.println(qry);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(qry, null);
@@ -372,10 +373,11 @@ public class DatabaseHandler extends SQLiteOpenHelper {
         System.out.println("Amount::::::::::" + rpData.getAmount());
         return rpData;
     }
-    public ReportData getReportBySubType(String type,String subType){
+    public ReportData getReportBySubType(String type,String subType,String startDate,String endDate){
         ReportData rpData=new ReportData();
         String type_id = String.valueOf(getType(subType).get_id());
-        String qry="SELECT SUM("+KEY_AMOUNT+") FROM "+TABLE_CONTACTS+" WHERE "+KEY_SUB_TYPE+" = '"+type_id+"' AND "+KEY_HEAD+" = '"+type+"';";
+        String qry="SELECT SUM("+KEY_AMOUNT+") FROM "+TABLE_CONTACTS+" WHERE "+KEY_SUB_TYPE+" = '"+type_id+"' AND "+KEY_TYPE+" = '"+type+
+                "' AND "+KEY_DATE+" >= '"+startDate+"' AND "+KEY_DATE+" <='"+endDate+"';";;
         System.out.println(qry);
         SQLiteDatabase db = this.getReadableDatabase();
         Cursor cursor = db.rawQuery(qry, null);
@@ -396,7 +398,7 @@ public class DatabaseHandler extends SQLiteOpenHelper {
     public List<History> getistoryByDate(String startDate,String endDate,String type,String head) {
         List<History> contactList = new ArrayList<History>();
         String type_id = String.valueOf(getType(type).get_id());
-        String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS+" WHERE "+KEY_SUB_TYPE+" = '"+type_id+"' AND "+KEY_HEAD+" = '"+
+        String selectQuery = "SELECT  * FROM " + TABLE_CONTACTS+" WHERE "+KEY_SUB_TYPE+" = '"+type_id+"' AND "+KEY_TYPE+" = '"+
                 head+"' AND "+KEY_DATE+" >= '"+startDate+"' AND "+KEY_DATE+" <='"+endDate+"';";
         System.out.println(selectQuery);
 

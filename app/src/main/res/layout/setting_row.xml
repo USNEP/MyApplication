@@ -2,26 +2,30 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
     android:padding="5dp"
-    android:background="#B0BEC5"
+    style="@style/foreback"
     >
     <TextView
         android:id="@+id/sn_setting"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="..............."
-        android:textSize="15dp" ></TextView>
+        android:textSize="15dp"
+        android:background="@drawable/bullet"
+        ></TextView>
     <TextView
         android:id="@+id/sn_empty"
         android:layout_width="20dp"
         android:layout_height="wrap_content"
         android:text=""
-        android:textSize="10dp" ></TextView>
+        android:textSize="10dp"             style="@style/foreback"
+        ></TextView>
     <TextView
         android:id="@+id/st_row"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="..............."
-        android:textSize="15dp" ></TextView>
+        android:textSize="15dp"            style="@style/foreback"
+        ></TextView>
 
 
 </LinearLayout>

@@ -6,16 +6,20 @@
     <FrameLayout
         android:id="@+id/content_frame"
         android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+        android:layout_height="match_parent"
+        style="@style/foreback"
+        />
 
     <ListView
         android:id="@+id/left_drawer"
-        android:layout_width="170dp"
+        android:layout_width="210dp"
         android:layout_height="match_parent"
         android:layout_gravity="start"
-        android:background="#212121"
+        android:background="#1A237E"
         android:choiceMode="singleChoice"
         android:divider="@android:color/holo_blue_dark"
-        android:dividerHeight="2dp" />
+        android:dividerHeight="2dp"
+        style="@style/foreback"
+        />
 
 </android.support.v4.widget.DrawerLayout>

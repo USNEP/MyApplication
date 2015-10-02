@@ -2,7 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#B0BEC5"
+    style="@style/foreback"
     >
     <TextView
         android:id="@+id/lblAll"
@@ -12,7 +12,8 @@
         android:layout_marginTop="15dp"
         android:layout_marginLeft="17dp"
         android:ems="10"
-        android:textSize="20dp"/>
+        android:textSize="20dp"        style="@style/foreback"
+        />
 
 
 

@@ -7,6 +7,14 @@ public class ReportData {
     private String type;
     private double amount;
 
+    public ReportData() {
+    }
+
+    public ReportData(String type, double amount) {
+        this.type = type;
+        this.amount = amount;
+    }
+
     public String getType() {
         return type;
     }

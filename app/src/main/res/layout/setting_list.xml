@@ -1,13 +1,16 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content"
-    android:padding="5dp" >
+    android:padding="5dp"
+    style="@style/foreback"
+    >
     <TextView
         android:id="@+id/sn"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="..............."
-        android:textSize="18dp" >
+        android:textSize="18dp"             style="@style/foreback"
+        >
     </TextView>
     <TextView
         android:id="@+id/item_st"
@@ -17,7 +20,7 @@
         android:layout_toRightOf="@id/sn"
         android:text="..............."
         android:textSize="18dp"
-        android:background="#B0BEC5"
+        style="@style/foreback"
         >
     </TextView>
     <ImageButton

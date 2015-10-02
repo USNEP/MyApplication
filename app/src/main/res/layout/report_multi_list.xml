@@ -1,17 +1,26 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="fill_parent"
-    android:layout_height="fill_parent"
-    android:id="@+id/scroll_list"
-    android:fillViewport="true"
-    android:orientation="vertical"
-    android:fadeScrollbars="false"
-    android:background="#B0BEC5"
-    >
-
-    <RelativeLayout
+    <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"             style="@style/foreback"
+    >
+    <ScrollView
+
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:id="@+id/scroll_list"
+        android:fillViewport="true"
+        android:orientation="vertical"
+        android:fadeScrollbars="false"
+        style="@style/foreback"
+        >
+        <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            style="@style/foreback"
+
+            >
         <TextView
             android:id="@+id/lblHead"
             android:layout_marginTop="15dp"
@@ -19,53 +28,126 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="false"
-            android:text="REPORT" />
+            android:text="REPORT"             style="@style/foreback"
+            />
+            <LinearLayout
+                android:id="@+id/datePanel"
+                android:layout_below="@+id/lblHead"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/foreback"
+                >
+                <TextView
+                    android:id="@+id/lbldate1"
+                    android:layout_marginLeft="15dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:text="From"             style="@style/foreback"
+                    />
+                <EditText
+                    android:id="@+id/editDate1"
+                    android:layout_marginLeft="5dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:focusable="false"
+                    android:text="................."             style="@style/foreback"
+                    />
+                <TextView
+                    android:id="@+id/lbldate2"
+                    android:layout_marginLeft="5dp"
 
-        <TextView
-            android:id="@+id/lblheader1"
-            android:layout_below="@+id/lblHead"
-            android:layout_marginTop="15dp"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="Money In:" />
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:text="To"             style="@style/foreback"
+                    />
+                <EditText
+                    android:id="@+id/editDate2"
+                    android:layout_marginLeft="5dp"
+                    android:focusable="false"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="16dp"
+                    android:text="............."             style="@style/foreback"
+                    />
+                <Button
+                    android:layout_marginLeft="5dp"
 
-        <ListView
-            android:id="@+id/listView1"
-            android:layout_below="@+id/lblheader1"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            >
-        </ListView>
-        <TextView
-            android:id="@+id/lblheader2"
-            android:layout_below="@+id/listView1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="Expenses:" />
+                    android:id="@+id/btnShow"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Load"
+                    android:textSize="10dp"
+                    android:background="@drawable/button_bg"
+                    />
 
-        <ListView
-            android:id="@+id/listView2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/lblheader2"
-            >
-        </ListView>
-        <TextView
-            android:id="@+id/lblheader3"
-            android:layout_below="@+id/listView2"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerHorizontal="true"
-            android:text="Money Out:" />
+            </LinearLayout>
 
+            <ListView
+                android:id="@+id/listView1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/datePanel"
+                android:layout_marginRight="15dp"
+                style="@style/foreback"
+
+                >
+            </ListView>
+
+            <ListView
+                android:id="@+id/listView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/listView1"
+                android:layout_marginRight="15dp"
+                style="@style/foreback"
+                >
+            </ListView>
         <ListView
             android:id="@+id/listView3"
+            android:layout_below="@+id/listView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/lblheader3"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="25dp"
+            style="@style/foreback"
+
             >
         </ListView>
+            <ListView
+                android:id="@+id/listView4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/listView3"
+                android:layout_marginRight="15dp"
+                style="@style/foreback"
+                >
+            </ListView>
+
+        <ListView
+            android:id="@+id/listView5"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/listView4"
+            android:layout_marginRight="25dp"
+            android:layout_marginLeft="15dp"
+            style="@style/foreback"
+
+            >
+        </ListView>
+
+        <ListView
+                android:id="@+id/listView6"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/listView5"
+                android:layout_marginRight="15dp"
+            style="@style/foreback"
+
+            >
+            </ListView>
+        </RelativeLayout>
+    </ScrollView>
     </RelativeLayout>
-</ScrollView>

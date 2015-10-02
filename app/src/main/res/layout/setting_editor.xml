@@ -3,12 +3,13 @@
     android:layout_height="fill_parent"
     android:id="@+id/scroll_list"
     android:fillViewport="true"
-    android:background="#B0BEC5"
+    style="@style/foreback"
     >
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" >
+        android:layout_height="wrap_content"             style="@style/foreback"
+        >
         <TextView
             android:id="@+id/lblHead"
             android:layout_marginTop="15dp"
@@ -17,7 +18,8 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="false"
             android:textSize="18dp"
-            android:text=".." />
+            android:text=".."             style="@style/foreback"
+            />
 
         <TextView
             android:id="@+id/lblheader1"
@@ -27,13 +29,15 @@
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
             android:textSize="16dp"
-            android:text="..." />
+            android:text="..."             style="@style/foreback"
+            />
 
         <ListView
             android:id="@+id/listView1"
             android:layout_below="@+id/lblheader1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/foreback"
             >
         </ListView>
 

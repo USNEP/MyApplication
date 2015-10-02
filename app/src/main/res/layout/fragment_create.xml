@@ -2,12 +2,14 @@
 <ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="#B0BEC5"
+    style="@style/foreback"
     >
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/createView"
     android:layout_width="fill_parent"
-    android:layout_height="fill_parent" >
+    android:layout_height="fill_parent"
+    style="@style/foreback"
+    >
 
     <EditText
         android:id="@+id/fldDate"
@@ -32,13 +34,16 @@
         android:layout_marginLeft="17dp"
         android:layout_marginTop="60dp"
         android:ems="10"
-        android:textSize="20dp"/>
+        android:textSize="20dp"
+        style="@style/foreback"
+        />
 
     <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
       android:id="@+id/form"
          android:layout_width="fill_parent"
         android:layout_height="fill_parent"
-        android:layout_marginTop="75dp">
+        android:layout_marginTop="75dp"
+        >
 
         <Spinner
             android:id="@+id/spinnerList1"
@@ -49,7 +54,9 @@
             android:layout_marginTop="19dp"
             android:dropDownWidth="fill_parent"
             android:layout_marginRight="19dp"
-            android:clickable="false"/>
+            android:clickable="false"
+            style="@style/foreback"
+            />
         <TextView
             android:id="@+id/lblspinner1"
             android:layout_width="wrap_content"
@@ -57,6 +64,7 @@
             android:layout_alignBaseline="@+id/spinnerList1"
             android:text="Source:"
             android:layout_marginLeft="16dp"
+            style="@style/foreback"
             />
 
 
@@ -96,7 +104,8 @@
             android:layout_marginRight="19dp"
             android:spinnerMode="dropdown"
             android:clickable="false"
-           />
+            style="@style/foreback"
+            />
         <Button
             android:id="@+id/btnCreate"
             android:layout_width="wrap_content"
@@ -106,7 +115,9 @@
             android:text="@string/create_new"
             android:background="@drawable/button_bg"
             android:layout_marginRight="19dp"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"
+            style="@style/foreback"
+            />
         <!--<EditText-->
         <!--android:id="@+id/fldName"-->
         <!--android:layout_width="wrap_content"-->
@@ -125,9 +136,10 @@
         android:layout_height="wrap_content"
         android:layout_alignParentRight="true"
         android:layout_below="@+id/btnCreate"
-        android:layout_marginTop="22dp"
+        android:layout_marginTop="15dp"
         android:singleLine="true"
         android:numeric="integer"
+        style="@style/foreback"
 
         android:ems="10" />
 
@@ -139,7 +151,8 @@
         android:layout_alignBottom="@+id/spinnerList"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="16dp"
-        android:text="From:" />
+        android:text="From:"         style="@style/foreback"
+        />
 
     <TextView
         android:id="@+id/lblPh_no"
@@ -148,7 +161,8 @@
         android:layout_alignBaseline="@+id/fldAmount"
         android:layout_alignBottom="@+id/fldAmount"
         android:layout_alignLeft="@+id/lblName"
-        android:text="Amount:" />
+        android:text="Amount:"         style="@style/foreback"
+        />
 
         <RadioGroup
         android:id="@+id/radiofistOption"
@@ -158,20 +172,22 @@
         android:layout_below="@+id/lblPh_no"
         android:layout_marginTop="19dp"
         android:layout_marginLeft="16dp"
-        >
+            style="@style/foreback"
+            >
 
         <RadioButton
         android:id="@+id/radioCash"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Cash"
-        android:checked="true" />
+        android:checked="true" style="@style/foreback"/>
 
         <RadioButton
         android:id="@+id/radioBank"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="Bank" />
+        android:text="Bank"         style="@style/foreback"
+            />
 
         </RadioGroup>
 
@@ -183,7 +199,8 @@
         android:layout_alignBottom="@+id/fldComment"
         android:layout_alignParentLeft="true"
         android:layout_marginLeft="16dp"
-        android:text="Comment:" />
+        android:text="Comment:"         style="@style/foreback"
+            />
 
         <EditText
             android:id="@+id/fldComment"
@@ -193,7 +210,8 @@
             android:singleLine="true"
             android:layout_below="@+id/radiofistOption"
             android:layout_marginTop="22dp"
-            android:ems="10" />
+            android:ems="10"         style="@style/foreback"
+            />
 
 
         <Button
@@ -204,7 +222,8 @@
             android:layout_centerHorizontal="true"
             android:text="Add"
             android:background="@drawable/button_bg"
-            android:layout_marginTop="16dp" />
+            android:layout_marginTop="16dp"         style="@style/foreback"
+            />
 
 
     </RelativeLayout>

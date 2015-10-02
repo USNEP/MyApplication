@@ -1,7 +1,8 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#B0BEC5"
+    android:background="#1A237E"
+    style="@style/foreback"
     >
     <TextView
         android:id="@+id/about"
@@ -9,8 +10,10 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
         android:text="..............."
-        android:background="#B0BEC5"
-        android:textSize="15dp" ></TextView>
+        android:background="#1A237E"
+        android:textSize="15dp"
+        style="@style/foreback"
+        ></TextView>
 
 
 </LinearLayout>

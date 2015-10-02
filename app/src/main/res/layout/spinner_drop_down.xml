@@ -3,6 +3,5 @@
     android:singleLine="true"
     android:layout_width="100dp"
     android:layout_height="wrap_content"
-    android:textColor="#aa66cc"
-    android:background="#B0BEC5"
+    style="@style/foreback"
     />

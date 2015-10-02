@@ -6,7 +6,7 @@
     android:fillViewport="true"
     android:orientation="vertical"
     android:fadeScrollbars="false"
-    android:background="#B0BEC5"
+    style="@style/foreback"
     >
 
     <RelativeLayout
@@ -19,7 +19,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="false"
-            android:text="SETTING" />
+            android:text="SETTING"        style="@style/foreback"
+            />
 
         <TextView
             android:id="@+id/lblheader1"
@@ -28,13 +29,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Money In:" />
+            android:text="Money In:"         style="@style/foreback"
+            />
 
         <ListView
             android:id="@+id/listView1"
             android:layout_below="@+id/lblheader1"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            style="@style/foreback"
             >
         </ListView>
         <TextView
@@ -43,14 +46,16 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Expenses:" />
+            android:text="Expenses:"         style="@style/foreback"
+            />
 
         <ListView
             android:id="@+id/listView2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblheader2"
-             >
+            style="@style/foreback"
+            >
         </ListView>
         <TextView
             android:id="@+id/lblheader3"
@@ -58,13 +63,15 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_centerHorizontal="true"
-            android:text="Money Out:" />
+            android:text="Money Out:"         style="@style/foreback"
+            />
 
         <ListView
             android:id="@+id/listView3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/lblheader3"
+            style="@style/foreback"
             >
         </ListView>
     </RelativeLayout>

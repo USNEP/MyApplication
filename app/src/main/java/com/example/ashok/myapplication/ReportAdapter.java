@@ -28,13 +28,13 @@ public class ReportAdapter extends Fragment implements ListView.OnItemClickListe
     private Context thiscontext;
     private DatabaseHandler db;
     private String currentTpe;
-    private String currentDrawer;
     private TextView lblHead;
     private TextView lblTitle;
     List<String> loanItems;
     List<Type> types;
     String tp;
-
+    String startDate="";
+    String endDate="";
     public ReportAdapter() {
     }
 
@@ -44,10 +44,10 @@ public class ReportAdapter extends Fragment implements ListView.OnItemClickListe
         thiscontext=container.getContext();
         db = new DatabaseHandler(thiscontext);
         currentTpe =getArguments().getString("arlist");
-        currentDrawer=getArguments().getString("current");
-        lblHead=(TextView) view.findViewById(R.id.lblHead);
+        startDate =getArguments().getString("startDate");
+        endDate =getArguments().getString("endDate");
+
         lblTitle=(TextView) view.findViewById(R.id.lblheader1);
-        lblHead.setText(currentDrawer);
         lblTitle.setText(currentTpe);
         String[] drawerItems=getResources().getStringArray(R.array.navigation_drawer_items_array);
         loanItems= Arrays.asList(getResources().getStringArray(R.array.loan_items));
@@ -56,14 +56,11 @@ public class ReportAdapter extends Fragment implements ListView.OnItemClickListe
         }
         else
         {
-            types= db.getTypes(currentDrawer, currentTpe);
+            types= db.getTypes("", currentTpe);
         }
-
         ListView list_view1=(ListView)view.findViewById(R.id.listView1);
-        list_view1.setAdapter(new ReportArrayAdapter(getActivity(), getReportArray(types,currentDrawer)));
+        list_view1.setAdapter(new ReportArrayAdapter(getActivity(), getReportArray(types)));
         list_view1.setOnItemClickListener(this);
-
-
         return view;
     }
 
@@ -73,16 +70,20 @@ public class ReportAdapter extends Fragment implements ListView.OnItemClickListe
         Bundle bundle = new Bundle();
         TextView tv=(TextView)view.findViewById(R.id.st_row);
         System.out.println(tv.getText().toString());
-        bundle.putString("currentHead", currentDrawer);
+        bundle.putString("currentHead", currentTpe);
         bundle.putString("currentSubType", tv.getText().toString());
+        bundle.putString("startDate", startDate);
+        bundle.putString("endDate", endDate);
+
+
         fragment.setArguments(bundle);
         Global.global.changeFragment(fragment);
 
     }
-    public List<ReportData> getReportArray(List<Type> array,String type){
+    public List<ReportData> getReportArray(List<Type> array){
         List<ReportData> rp=new ArrayList<ReportData>();
         for(Type t:array){
-        rp.add(db.getReportBySubType(type, t.get_sub_type()));
+        rp.add(db.getReportBySubType(currentTpe, t.get_sub_type(),startDate,endDate));
             }
         return rp;
          }
