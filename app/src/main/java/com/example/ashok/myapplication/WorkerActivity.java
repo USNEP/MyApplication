@@ -1,8 +1,7 @@
-
 package com.example.ashok.myapplication;
 
         import android.app.AlertDialog;
-        import android.app.Fragment;
+        import android.support.v4.app.Fragment;
         import android.content.DialogInterface;
         import android.support.v4.widget.DrawerLayout;
         import android.support.v7.app.ActionBar;
@@ -12,7 +11,6 @@ package com.example.ashok.myapplication;
         import android.view.Menu;
         import android.view.MenuItem;
         import android.widget.ListView;
-        import android.app.FragmentManager;
         import android.support.v4.app.ActionBarDrawerToggle;
         import android.util.Log;
         import android.view.View;
@@ -36,17 +34,17 @@ public class WorkerActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        Global.getInstance();
         DatabaseHandler db = new DatabaseHandler(this);
         System.out.println("Database on start calling");
         db.onStart();
         System.out.println("Database on start called");
-
         mTitle = mDrawerTitle = getTitle();
         mNavigationDrawerItemTitles= getResources().getStringArray(R.array.navigation_drawer_items_array);
         mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer_layout);
         mDrawerList = (ListView) findViewById(R.id.left_drawer);
         ObjectDrawerItem[] drawerItem = new ObjectDrawerItem[5];
-
+        Global.global.setActionBar(getSupportActionBar());
         drawerItem[0] = new ObjectDrawerItem(R.drawable.icon_save, mNavigationDrawerItemTitles[0]);
         drawerItem[1] = new ObjectDrawerItem(R.drawable.icon_save, mNavigationDrawerItemTitles[1]);
         drawerItem[2] = new ObjectDrawerItem(R.drawable.icon_save,mNavigationDrawerItemTitles[2]);
@@ -181,9 +179,11 @@ public class WorkerActivity extends AppCompatActivity {
         switch (position) {
             case -2:
                 fragment=new Setting();
+                Global.global.setActionBarStandard();
                 break;
             case -1:
                 fragment=new Home();
+                Global.global.setActionBarStandard();
                 break;
             case 0:
                 fragment = new RecordMoneyExpenses();
@@ -191,6 +191,8 @@ public class WorkerActivity extends AppCompatActivity {
                 bundle.putString("current", mNavigationDrawerItemTitles[0]);
                 bundle.putStringArrayList("arlist", new ArrayList<String>(Arrays.asList(mNavigationDrawerItemTitles)));
                 fragment.setArguments(bundle);
+                Global.global.setActionBarStandard();
+
                 break;
             case 1:
                 fragment = new RecordMoneyExpenses();
@@ -198,6 +200,8 @@ public class WorkerActivity extends AppCompatActivity {
                 bundle.putString("current", mNavigationDrawerItemTitles[1]);
                 bundle.putStringArrayList("arlist", new ArrayList<String>(Arrays.asList(mNavigationDrawerItemTitles)));
                 fragment.setArguments(bundle);
+                Global.global.setActionBarStandard();
+
 
                 break;
             case 2:
@@ -206,22 +210,26 @@ public class WorkerActivity extends AppCompatActivity {
                 bundle.putString("current", mNavigationDrawerItemTitles[2]);
                 bundle.putStringArrayList("arlist", new ArrayList<String>(Arrays.asList(mNavigationDrawerItemTitles)));
                 fragment.setArguments(bundle);
+                Global.global.setActionBarStandard();
+
                 break;
             case 3:
                 fragment = new Reports();
+                Global.global.setActionBarStandard();
+
                 break;
             case 4:
-                fragment = new About();
+                fragment = new TabbedFragment();
                 break;
 
 
             default:
+                Global.global.setActionBarStandard();
                 break;
         }
 
         if (fragment != null) {
-            Global.getInstance();
-            Global.global.setFragmentManager(getFragmentManager());
+            Global.global.setFragmentManager(getSupportFragmentManager());
             Global.global.changeFragment(fragment);
             //fragmentManager.beginTransaction().replace(R.id.content_frame, fragment).commit();
             if(position>-1) {

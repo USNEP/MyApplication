@@ -2,7 +2,7 @@ package com.example.ashok.myapplication;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
-import android.app.Fragment;
+import android.support.v4.app.Fragment;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;

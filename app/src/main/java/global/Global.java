@@ -1,7 +1,8 @@
 package global;
 
-import android.app.Fragment;
-import android.app.FragmentManager;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v7.app.ActionBar;
 
 import com.example.ashok.myapplication.R;
 
@@ -17,6 +18,24 @@ public class Global {
 
     private FragmentManager fragmentManager;
     public static Global global;
+
+    public ActionBar getActionBar() {
+        return actionBar;
+    }
+
+    public void setActionBar(ActionBar actionBar) {
+        this.actionBar = actionBar;
+
+    }
+    public void setActionBarMode(){
+        this.actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_TABS);
+    }
+
+    public void setActionBarStandard(){    this.actionBar.setNavigationMode(ActionBar.NAVIGATION_MODE_STANDARD);
+
+    }
+
+    ActionBar actionBar;
 
     public FragmentManager getFragmentManager() {
         return fragmentManager;
